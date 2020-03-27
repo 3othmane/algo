@@ -1,0 +1,42 @@
+import java.util.*;
+import java.io.*;
+
+class Main {  
+  public static String GroupTotals(String[] strArr) {
+ 
+      //Fonction developpÃ© par FALLAH EL IDRISSI Othmane, toute modification ou reproduction ou utilisation ne doit Ãªtre faite qu'aprÃ¨s avoir obtenu son son autorisation
+      //@ : othmanefallahelidrissi@gmail.com
+      Map<String,Integer> map=new TreeMap<String,Integer>();
+      for (int i=0;i<strArr.length;i++){
+        if(map.containsKey(strArr[i].substring(0,strArr[i].indexOf(":")))){
+          map.put(strArr[i].substring(0,strArr[i].indexOf(":")),Integer.valueOf(strArr[i].substring(strArr[i].indexOf(":")+1))+map.get(strArr[i].substring(0,strArr[i].indexOf(":"))));
+        }else{
+          map.put(strArr[i].substring(0,strArr[i].indexOf(":")),Integer.valueOf(strArr[i].substring(strArr[i].indexOf(":")+1)));
+        }
+      }
+      Iterator<String> it = map.keySet().iterator();
+      strArr[0]="";
+      String tmpKey="";
+      int n=0;
+      while(it.hasNext()){
+        tmpKey =it.next();
+        if(map.get(tmpKey)!=0){
+          if(n==0){
+            strArr[0]=tmpKey+":"+map.get(tmpKey);
+            n++;
+          }else{
+            strArr[0]=strArr[0]+","+tmpKey+":"+map.get(tmpKey);
+          }
+        }
+      }
+ 
+    return strArr[0];
+   
+  }
+ 
+  public static void main (String[] args) {  
+    // keep this function call here    
+    Scanner s = new Scanner(System.in);
+    System.out.print(GroupTotals(s.nextLine()));
+  }  
+}
